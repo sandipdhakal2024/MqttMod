@@ -10,13 +10,14 @@ import org.slf4j.LoggerFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MqttClientManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(MqttClientManager.class);
     private static MqttClientManager instance;
     
     private Mqtt3AsyncClient mqttClient;
-    private boolean connected = false;
+    private final AtomicBoolean connected = new AtomicBoolean(false);
 
     private MqttClientManager() {
     }
@@ -29,7 +30,7 @@ public class MqttClientManager {
     }
 
     public void connect() {
-        if (connected) {
+        if (connected.get()) {
             LOGGER.warn("MQTT client is already connected");
             return;
         }
@@ -56,27 +57,27 @@ public class MqttClientManager {
                     .whenComplete((connAck, throwable) -> {
                         if (throwable != null) {
                             LOGGER.error("Failed to connect to MQTT broker: {}", throwable.getMessage());
-                            connected = false;
+                            connected.set(false);
                         } else {
                             LOGGER.info("Successfully connected to MQTT broker");
-                            connected = true;
+                            connected.set(true);
                         }
                     })
                     .orTimeout(timeout, TimeUnit.SECONDS)
                     .exceptionally(throwable -> {
                         LOGGER.error("Connection timeout or error: {}", throwable.getMessage());
-                        connected = false;
+                        connected.set(false);
                         return null;
                     });
 
         } catch (Exception e) {
             LOGGER.error("Exception while connecting to MQTT broker", e);
-            connected = false;
+            connected.set(false);
         }
     }
 
     public void disconnect() {
-        if (mqttClient != null && connected) {
+        if (mqttClient != null && connected.get()) {
             try {
                 LOGGER.info("Disconnecting from MQTT broker");
                 mqttClient.disconnect()
@@ -86,7 +87,7 @@ public class MqttClientManager {
                             } else {
                                 LOGGER.info("Successfully disconnected from MQTT broker");
                             }
-                            connected = false;
+                            connected.set(false);
                         });
             } catch (Exception e) {
                 LOGGER.error("Exception while disconnecting from MQTT broker", e);
@@ -95,7 +96,7 @@ public class MqttClientManager {
     }
 
     public void publishMessage(String topic, String message) {
-        if (!connected || mqttClient == null) {
+        if (!connected.get() || mqttClient == null) {
             LOGGER.warn("Cannot publish message - MQTT client is not connected");
             return;
         }
@@ -119,6 +120,6 @@ public class MqttClientManager {
     }
 
     public boolean isConnected() {
-        return connected;
+        return connected.get();
     }
 }

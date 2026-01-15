@@ -20,7 +20,7 @@ This mod monitors player health in Minecraft and publishes real-time health upda
 ### Prerequisites
 
 - Minecraft 1.21.1
-- NeoForge 21.1.73 or higher
+- NeoForge 21.1.0 or higher
 - Java 21
 
 ### Steps
