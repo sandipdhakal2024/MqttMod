@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -22,3 +21,36 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Gradle
+.gradle/
+build/
+run/
+out/
+repo/
+
+# Gradle wrapper jar is allowed
+!gradle/wrapper/gradle-wrapper.jar
+
+# Eclipse
+bin/
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# NeoForge
+src/generated/
