@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -29,6 +28,9 @@ build/
 run/
 out/
 repo/
+
+# Gradle wrapper jar is allowed
+!gradle/wrapper/gradle-wrapper.jar
 
 # Eclipse
 bin/
