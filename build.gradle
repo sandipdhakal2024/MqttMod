@@ -58,6 +58,7 @@ neoForge {
 dependencies {
     // HiveMQ MQTT Client
     implementation 'com.hivemq:hivemq-mqtt-client:1.3.3'
+    additionalRuntimeClasspath 'com.hivemq:hivemq-mqtt-client:1.3.3'
 }
 
 tasks.withType(ProcessResources).configureEach {
