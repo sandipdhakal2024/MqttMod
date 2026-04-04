@@ -8,12 +8,12 @@ This mod monitors player health in Minecraft and publishes real-time health upda
 
 ## Features
 
-- 🔌 **Automatic MQTT Connection**: Connects to MQTT broker on server startup
-- 📊 **Real-time Health Monitoring**: Publishes player health data when damage occurs
-- ⚙️ **Configurable Settings**: Customize broker address, port, topic, and more
-- 🔒 **Thread-Safe Operations**: Asynchronous MQTT publishing to avoid blocking the game thread
-- 🛡️ **Graceful Error Handling**: Logs errors without crashing the game
-- 🎮 **Single & Multiplayer Support**: Works in both game modes
+- **Automatic MQTT Connection**: Connects to MQTT broker on server startup
+- **Real-time Health Monitoring**: Publishes player health data when damage occurs
+- **Configurable Settings**: Customize broker address, port, topic, and more
+- **Thread-Safe Operations**: Asynchronous MQTT publishing to avoid blocking the game thread
+- **Graceful Error Handling**: Logs errors without crashing the game
+- **Single & Multiplayer Support**: Works in both game modes
 
 ## Installation
 
